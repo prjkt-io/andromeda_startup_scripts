@@ -10,7 +10,9 @@ echo ""
 ROOT=$(dirname "${0}")
 
 # ADB specific commands for termination
-adb kill-server
+# Don't kill existing servers in case someone has
+# a wireless ADB setup going.
+# adb kill-server
 adb start-server
 
 # Device configuration of the testing rack

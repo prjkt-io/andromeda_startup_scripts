@@ -49,7 +49,7 @@ if [[ "$kill" != "" ]]; then
 $ROOT/$ADBS kill -9 $kill
 fi
 echo
-$ROOT/$ADBS << EOF
+$ROOT/$ADBS << EOF &
 am force-stop projekt.substratum
 appops set projekt.andromeda RUN_IN_BACKGROUND allow
 appops set projekt.substratum RUN_IN_BACKGROUND allow
@@ -57,6 +57,7 @@ CLASSPATH=$pkg app_process /system/bin --nice-name=andromeda projekt.andromeda.A
 echo "Please remove your device from the computer!"
 exit
 EOF
+disown
 
 # We're done!
 $ROOT/$adbm kill-server

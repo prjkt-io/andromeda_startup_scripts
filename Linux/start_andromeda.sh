@@ -5,9 +5,6 @@ echo "This requires projekt.andromeda to be installed on the device"
 echo "Make sure the device is connected and ADB option enabled"
 echo "Please only have one device connected at a time to use this!"
 echo ""
-read -n 1 -s -r -p "Press any key to continue..."
-echo ""
-echo ""
 
 # Get the current directory of the device running this script
 ROOT=$(dirname ${0})

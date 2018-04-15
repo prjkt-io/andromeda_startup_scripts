@@ -20,7 +20,7 @@ ADB="adb shell"
 pkg=$(${ROOT}/${ADB} pm path projekt.andromeda)
 
 # Due to the way the output is formatted, we have to strip 10 chars at the start
-pkg=$(echo ${pkg} | sed 's/package://')
+pkg=${pkg//package:/}
 
 # Now let's kill the running Andromeda services on the mobile device
 kill=$(${ROOT}/${ADB} pidof andromeda)

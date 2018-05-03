@@ -16,21 +16,21 @@ ROOT=$(dirname "${0}")
 adb start-server
 
 # Device configuration of the testing rack
-ADB="adb shell"
+ADB="adb"
 
 # Let's first grab the location where Andromeda is installed
-pkg=$("${ROOT}"/"${ADB}" pm path projekt.andromeda)
+pkg=$("${ROOT}"/"${ADB}" shell pm path projekt.andromeda)
 
 # Due to the way the output is formatted, we have to strip 10 chars at the start
 pkg="${pkg//package:/}"
 
 # Now let's kill the running Andromeda services on the mobile device
-kill=$("${ROOT}"/"${ADB}" pidof andromeda)
+kill=$("${ROOT}"/"${ADB}" shell pidof andromeda)
 
 # Check if we need to kill the existing pids, then kill them if need be
 if [[ "${kill}" == "" ]]
 then echo
-"${ROOT}"/"${ADB}" << EOF
+"${ROOT}"/"${ADB}" shell << EOF
 am force-stop projekt.substratum
 appops set projekt.andromeda RUN_IN_BACKGROUND allow
 appops set projekt.substratum RUN_IN_BACKGROUND allow
@@ -39,7 +39,7 @@ echo "You can now remove your device from the computer!"
 exit
 EOF
 else echo
-"${ROOT}"/"${ADB}" << EOF
+"${ROOT}"/"${ADB}" shell << EOF
 am force-stop projekt.substratum
 kill -9 "${kill}"
 appops set projekt.andromeda RUN_IN_BACKGROUND allow

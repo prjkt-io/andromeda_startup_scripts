@@ -20,14 +20,20 @@ adb start-server
 # Device configuration of the testing rack
 ADB="adb"
 
+if [[ ! "${@}" =~ --skip-disabled ]]; then
 echo -e "${CL_YLW} Uninstalling disabled overlays ${CL_RST}"
 for item in $("${ROOT}/${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//');do echo ${item} && "${ROOT}/${ADB}" shell pm uninstall ${item};done
+fi
 
+if [[ ! "${@}" =~ --skip-enabled ]]; then
 echo -e "${CL_YLW} Uninstalling enabled overlays ${CL_RST}"
 for item in $("${ROOT}/${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo ${item} && "${ROOT}/${ADB}" shell pm uninstall ${item};done
+fi
 
+if [[ ! "${@}" =~ --skip-stuck ]]; then
 echo -e "${CL_YLW} Uninstalling pink state overlays ${CL_RST}"
 for item in $("${ROOT}/${ADB}" shell cmd overlay list | grep '\-\-\-' | sed 's/--- //');do echo ${item} && "${ROOT}/${ADB}" shell pm uninstall ${item};done
+fi
 
 echo -e "${CL_YLW} The script will reboot your device in five seconds ${CL_RST}"
 

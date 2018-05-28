@@ -16,7 +16,10 @@ ROOT=$(dirname "${0}")
 adb start-server
 
 # Device configuration of the testing rack
-ADB="adb"
+ADB="$(which adb)"
+if [ ${ADB} == "" ]; then
+    ADB="adb"
+fi
 
 # Let's first grab the location where Andromeda is installed
 pkg=$("${ROOT}"/"${ADB}" shell pm path projekt.andromeda)

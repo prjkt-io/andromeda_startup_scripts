@@ -13,7 +13,7 @@ ROOT="$(cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd)"
 
 # Device configuration of the testing rack
 ADB="$(command -v adb)"
-if [[ ${ADB} == "" ]]; then
+if [[ "${ADB}" == "" ]]; then
     ADB="${ROOT}/adb"
 fi
 
@@ -25,17 +25,17 @@ fi
 
 if [[ ! "${@}" =~ --skip-disabled ]]; then
 echo -e "${CL_YLW} Uninstalling disabled overlays ${CL_RST}"
-for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//');do echo ${item} && "${ADB}" shell pm uninstall ${item};done
+for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
 if [[ ! "${@}" =~ --skip-enabled ]]; then
 echo -e "${CL_YLW} Uninstalling enabled overlays ${CL_RST}"
-for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo ${item} && "${ADB}" shell pm uninstall ${item};done
+for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
 if [[ ! "${@}" =~ --skip-stuck ]]; then
 echo -e "${CL_YLW} Uninstalling pink state overlays ${CL_RST}"
-for item in $("${ADB}" shell cmd overlay list | grep '\-\-\-' | sed 's/--- //');do echo ${item} && "${ADB}" shell pm uninstall ${item};done
+for item in $("${ADB}" shell cmd overlay list | grep '\-\-\-' | sed 's/--- //');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
 echo -e "${CL_YLW} The script will reboot your device in five seconds ${CL_RST}"

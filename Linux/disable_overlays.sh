@@ -13,7 +13,7 @@ ROOT="$(cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd)"
 
 # Device configuration of the testing rack
 ADB="$(command -v adb)"
-if [[ ${ADB} == "" ]]; then
+if [[ "${ADB}" == "" ]]; then
     ADB="${ROOT}/adb"
 fi
 
@@ -24,4 +24,4 @@ fi
 "${ADB}" start-server
 
 echo -e "${CL_YLW} Disabling overlays ${CL_RST}"
-for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo ${item} && "${ADB}" shell cmd overlay disable ${item};done
+for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo "${item}" && "${ADB}" shell cmd overlay disable "${item}";done

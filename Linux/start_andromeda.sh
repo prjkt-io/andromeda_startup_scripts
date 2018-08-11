@@ -6,17 +6,19 @@ echo "Make sure the device is connected and ADB option enabled"
 echo "Please only have one device connected at a time to use this!"
 echo ""
 
+ROOT="$(cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd)"
+
+# Device configuration of the testing rack
+ADB="$(command -v adb)"
+if [[ ${ADB} == "" ]]; then
+    ADB="${ROOT}/adb"
+fi
+
 # ADB specific commands for termination
 # Don't kill existing servers in case someone has
 # a wireless ADB setup going.
 # adb kill-server
-adb start-server
-
-# Device configuration of the testing rack
-ADB="$(which adb)"
-if [[ ${ADB} == "" ]]; then
-    ADB="$(pwd)/adb"
-fi
+"${ADB}" start-server
 
 # Let's first grab the location where Andromeda is installed
 pkg=$("${ADB}" shell pm path projekt.andromeda)

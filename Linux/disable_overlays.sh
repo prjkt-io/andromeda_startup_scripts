@@ -9,12 +9,12 @@ CL_RST="\033[0m"
 CL_YLW="\033[01;33m"
 
 # Get the current directory of the device running this script
-ROOT=$(dirname "${0}")
+ROOT="$(cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd)"
 
 # Device configuration of the testing rack
-ADB="$(which adb)"
+ADB="$(command -v adb)"
 if [[ ${ADB} == "" ]]; then
-    ADB="$(pwd)/adb"
+    ADB="${ROOT}/adb"
 fi
 
 # ADB specific commands for termination

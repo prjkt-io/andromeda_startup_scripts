@@ -21,10 +21,7 @@ fi
 "${ADB}" start-server
 
 # Let's first grab the location where Andromeda is installed
-pkg=$("${ADB}" shell pm path projekt.andromeda)
-
-# Due to the way the output is formatted, we have to strip 10 chars at the start
-pkg="${pkg//package:/}"
+pkg=$("${ADB}" shell pm path projekt.andromeda | sed 's/package://')
 
 # Now let's kill the running Andromeda services on the mobile device
 kill=$("${ADB}" shell pidof andromeda)

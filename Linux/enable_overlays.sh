@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Overlay Disabler Shell Script by [projekt.] development team"
+echo "Overlay Enabler Shell Script by [projekt.] development team"
 echo ""
 echo "Make sure the device is connected and ADB option enabled"
 echo "Please only have one device connected at a time to use this!"
@@ -23,5 +23,5 @@ fi
 # adb kill-server
 "${ADB}" start-server
 
-echo -e "${CL_YLW}Disabling overlays${CL_RST}"
-for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo "${item}" && echo "${item}" >> "${ROOT}/disabled_overlays" && "${ADB}" shell cmd overlay disable "${item}";done
+echo -e "${CL_YLW}Enabling overlays${CL_RST}"
+for item in $(cat "${ROOT}/disabled_overlays");do echo "${item}" && "${ADB}" shell cmd overlay enable "${item}";done

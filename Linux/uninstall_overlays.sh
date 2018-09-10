@@ -24,26 +24,26 @@ fi
 "${ADB}" start-server
 
 if [[ ! "${@}" =~ --skip-disabled ]]; then
-echo -e "${CL_YLW} Uninstalling disabled overlays ${CL_RST}"
+echo -e "${CL_YLW}Uninstalling disabled overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
 if [[ ! "${@}" =~ --skip-enabled ]]; then
-echo -e "${CL_YLW} Uninstalling enabled overlays ${CL_RST}"
+echo -e "${CL_YLW}Uninstalling enabled overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
 if [[ ! "${@}" =~ --skip-stuck ]]; then
-echo -e "${CL_YLW} Uninstalling pink state overlays ${CL_RST}"
+echo -e "${CL_YLW}Uninstalling pink state overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\-\-\-' | sed 's/--- //');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
-echo -e "${CL_YLW} The script will reboot your device in five seconds ${CL_RST}"
+echo -e "${CL_YLW}The script will reboot your device in five seconds${CL_RST}"
 
 for i in {5..1}; do
-  echo -e "${CL_YLW} Rebooting in ${i} seconds"
+  echo -e "${CL_YLW}Rebooting in ${i} seconds"
   sleep 1
 done
 
-echo -e "${CL_YLW} Rebooting ${CL_RST}"
+echo -e "${CL_YLW}Rebooting${CL_RST}"
 "${ADB}" reboot

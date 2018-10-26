@@ -23,17 +23,17 @@ fi
 # adb kill-server
 "${ADB}" start-server
 
-if [[ ! "${@}" =~ --skip-disabled ]]; then
+if [[ ! "$*" =~ --skip-disabled ]]; then
 echo -e "${CL_YLW}Uninstalling disabled overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
-if [[ ! "${@}" =~ --skip-enabled ]]; then
+if [[ ! "$*" =~ --skip-enabled ]]; then
 echo -e "${CL_YLW}Uninstalling enabled overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\[x\]' | sed 's/\[x\]//');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi
 
-if [[ ! "${@}" =~ --skip-stuck ]]; then
+if [[ ! "$*" =~ --skip-stuck ]]; then
 echo -e "${CL_YLW}Uninstalling pink state overlays${CL_RST}"
 for item in $("${ADB}" shell cmd overlay list | grep '\-\-\-' | sed 's/--- //');do echo "${item}" && "${ADB}" shell pm uninstall "${item}";done
 fi

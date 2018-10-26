@@ -25,7 +25,9 @@ fi
 
 echo -e "${CL_YLW}Enabling overlays${CL_RST}"
 if [ -f "${ROOT}/disabled_overlays" ]; then
-    for item in $(cat "${ROOT}/disabled_overlays");do echo "${item}" && "${ADB}" shell cmd overlay enable "${item}";done
+    while read -r item
+        do echo "${item}"; "${ADB}" shell cmd overlay enable "${item}"
+    done < "${ROOT}/disabled_overlays"
 else
-    for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//'); do echo "${item}" && "${ADB}" shell cmd overlay enable "${item}";done
+    for item in $("${ADB}" shell cmd overlay list | grep '\[ \]' | sed 's/\[ \]//'); do echo "${item}" && "${ADB}" shell cmd overlay enable "${item}"; done
 fi

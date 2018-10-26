@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "Andromeda Start Script by [projekt.] development team"
 echo " "
 echo "This requires projekt.andromeda to be installed on the device"

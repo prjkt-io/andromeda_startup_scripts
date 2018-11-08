@@ -3,8 +3,9 @@ SCRIPTS_TO_TEST := Linux/start_andromeda.sh Linux/uninstall_overlays.sh Linux/en
 test:
 		@shellcheck ${SCRIPTS_TO_TEST}
 
+package:
+		@./package.sh
+
 installhook:
 		@cp -v shellcheck-hook .git/hooks/pre-commit
 		@chmod +x .git/hooks/pre-commit
-
-.PHONY: test

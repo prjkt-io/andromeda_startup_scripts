@@ -1,4 +1,5 @@
 SCRIPTS_TO_TEST := Linux/start_andromeda.sh Linux/uninstall_overlays.sh Linux/enable_overlays.sh Linux/disable_overlays.sh macOS/start_andromeda.sh
+SCRIPTS_TO_TEST := Android/start_andromeda.sh Android/uninstall_overlays.sh Linux/disable_overlays.sh
 
 .DEFAULT_GOAL := package
 

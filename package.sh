@@ -14,7 +14,7 @@ for platform in Linux macOS; do
     tar -cf andromeda_scripts_"${VERSION}"_"${platform}".tar "${platform}/"
 done
 
-for platform in Windows; do
+for platform in Windows Android; do
     echo -e "${CL_YLW}Packaging for ${platform}...${CL_RST}"
     zip -r andromeda_scripts_"${VERSION}"_"${platform}".zip "${platform}/" >/dev/null 2>&1
 done

@@ -20,34 +20,5 @@ fi
 # adb kill-server
 "${ADB}" start-server
 
-# Let's first grab the location where Andromeda is installed
-pkg=$("${ADB}" shell pm path projekt.andromeda | sed 's/package://')
-
-# Now let's kill the running Andromeda services on the mobile device
-kill=$("${ADB}" shell pidof andromeda)
-
-# Check if we need to kill the existing pids, then kill them if need be
-if [[ "${kill}" == "" ]]
-then echo
-"${ADB}" shell << EOF
-am force-stop projekt.substratum
-appops set projekt.andromeda RUN_IN_BACKGROUND allow
-appops set projekt.substratum RUN_IN_BACKGROUND allow
-CLASSPATH="${pkg}" app_process /system/bin --nice-name=andromeda projekt.andromeda.Andromeda &
+"${ADB}" shell 'pkg=$(pm path projekt.andromeda | head -n1 | cut -d : -f 2 | sed s/\\r//g); CLASSPATH="${pkg}" nohup app_process /system/bin --nice-name=andromeda projekt.andromeda.Andromeda >/dev/null 2>&1 &'
 echo "You can now remove your device from the computer!"
-exit
-EOF
-else echo
-"${ADB}" shell << EOF
-am force-stop projekt.substratum
-kill -9 "${kill}"
-appops set projekt.andromeda RUN_IN_BACKGROUND allow
-appops set projekt.substratum RUN_IN_BACKGROUND allow
-CLASSPATH="${pkg}" app_process /system/bin --nice-name=andromeda projekt.andromeda.Andromeda &
-echo "You can now remove your device from the computer!"
-exit
-EOF
-fi
-
-# We're done!
-adb kill-server
